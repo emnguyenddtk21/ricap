@@ -159,7 +159,7 @@ def apply_ricap(inputs, targets, beta, device):
         y_k = np.random.randint(0, input_height - heights[k] + 1)
         cropped = inputs[indices][:, :, y_k : y_k + heights[k], x_k : x_k + widths[k]]
         cropped_images.append(cropped)
-        target_slices.append(target[indices].to(device, non_blocking=True))
+        target_slices.append(targets[indices].to(device, non_blocking=True))
         area_weights.append(widths[k] * heights[k] / (input_width * input_height))
 
     patched_images = torch.cat(
