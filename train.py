@@ -311,7 +311,7 @@ def main():
 
     for epoch in range(1, args.epochs + 1):
         current_lr = optimizer.param_groups[0]["lr"]
-        print(f"Epoch [{epoch}/{args.epochs}] - lr: {current_lr:.6f}")
+        print(f"Epoch [{epoch}/{args.epochs}] - lr: {current_lr:.6f}", flush=True)
 
         train_log = train_one_epoch(args, train_loader, model, criterion, optimizer, scaler, device)
         val_log = validate(test_loader, model, criterion, device)
@@ -320,7 +320,7 @@ def main():
         print(
             f"loss {train_log['loss']:.4f} - acc {train_log['acc']:.2f} - "
             f"val_loss {val_log['loss']:.4f} - val_acc {val_log['acc']:.2f}"
-        )
+        , flush=True)
 
         logs.append(
             {
@@ -337,7 +337,7 @@ def main():
         is_best = val_log["acc"] > best_acc
         if is_best:
             best_acc = val_log["acc"]
-            print("=> saved best model")
+            print("=> saved best model", flush=True)
 
         save_checkpoint(experiment_dir, model, optimizer, scheduler, args, epoch, best_acc, is_best)
 
